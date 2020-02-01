@@ -47,7 +47,7 @@ SDA        |PB7          |Serial data line
 
 #include "stm32f1xx_hal.h"
 
-#include "fonts.h"
+#include "BLib_fonts.h"
 
 #include "stdlib.h"
 #include "string.h"

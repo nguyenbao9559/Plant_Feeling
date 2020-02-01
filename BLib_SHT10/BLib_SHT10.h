@@ -1,9 +1,5 @@
-
-
 #include "stm32f1xx_hal.h"
 
-
->>>>>>> master
 #ifndef __BLib_SHT10_H__
 #define __BLib_SHT10_H__
 

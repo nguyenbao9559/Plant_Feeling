@@ -1,4 +1,6 @@
-#include "stm32f4xx_hal.h"
+
+#include "stm32f1xx_hal.h"
+
 
 #ifndef __BLib_SHT10_H__
 #define __BLib_SHT10_H__

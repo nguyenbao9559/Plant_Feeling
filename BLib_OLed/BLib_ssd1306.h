@@ -45,7 +45,7 @@ SCL        |PB6          |Serial clock line
 SDA        |PB7          |Serial data line
  */
 
-#include "stm32f4xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 #include "fonts.h"
 
@@ -290,7 +290,9 @@ void SSD1306_Stopscroll(void);
 
 void SSD1306_InvertDisplay (int i);
 
-void SSD1306_Data_Display(uint8_t data , FontDef_t* Font);
+void SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font);
+
+void SSD1306_Data_Display_float(float data , FontDef_t* Font);
 
 
 

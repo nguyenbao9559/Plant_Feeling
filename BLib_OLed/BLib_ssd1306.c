@@ -21,9 +21,9 @@
    ----------------------------------------------------------------------
  */
 #include "ssd1306.h"
+#include "math.h"
 
 extern I2C_HandleTypeDef hi2c1;
-extern I2C_HandleTypeDef hi2c2;
 /* Write command */
 //#define SSD1306_WRITECOMMAND(command)      ssd1306_I2C_Write(SSD1306_I2C_ADDR, 0x00, (command))
 /* Write data */
@@ -60,21 +60,87 @@ static SSD1306_t SSD1306;
 void SSD1306_WRITECOMMAND(uint8_t command) {
 
 //	HAL_I2C_Master_Transmit(&hi2c1, address<<1, buffer_loc, 2, 10);
-	HAL_I2C_Mem_Write(&hi2c2,SSD1306_I2C_ADDR<<1,0x00,I2C_MEMADD_SIZE_8BIT,&command,1,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR<<1,0x00,I2C_MEMADD_SIZE_8BIT,&command,1,HAL_MAX_DELAY);
 }
 
 void ssd1306_I2C_WriteMulti(uint8_t* buffer , size_t buffer_size) {
-	HAL_I2C_Mem_Write(&hi2c2,SSD1306_I2C_ADDR<<1,0x40,I2C_MEMADD_SIZE_8BIT,buffer,buffer_size,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1,SSD1306_I2C_ADDR<<1,0x40,I2C_MEMADD_SIZE_8BIT,buffer,buffer_size,HAL_MAX_DELAY);
 }
 
 static char x_char[10];
-void SSD1306_Data_Display(uint8_t data , FontDef_t* Font)
+void SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font)
 {
-		x_char[0] = (data / 10) + '0';
-		x_char[1] = (data % 10) + '0';
-    SSD1306_Puts (x_char, Font, 1);
+		uint8_t i, j, numLength;
+		uint8_t x_char_loc[10];
+		for(i=1 ; i < 10 ; i++)
+		{
+			if(data < pow(10,i))
+			{
+				numLength = i;
+				break;
+			}
+		}
+		for(j=1 ; j < numLength ; j++)
+		{		    
+			x_char_loc[j-1] = data / pow(10,numLength-j);
+			data = data - x_char_loc[j-1] * pow(10,numLength-j);			
+		}
+		x_char_loc[numLength-1] = (data % 10);
+		for(i=0 ;i < numLength ; i++)
+			x_char[i] = x_char_loc[i] + '0';
+		SSD1306_Puts (x_char, Font, 1);
 }
 
+void SSD1306_Data_Display_float(float data , FontDef_t* Font)
+{
+		uint8_t i, j, numLength;
+		uint8_t x_char_loc[10];
+		for(i=1 ; i < 10 ; i++)
+		{
+			if(data < pow(10,i))
+			{
+				numLength = i;
+				break;
+			}
+		}
+		for(j=1 ; j < numLength ; j++)
+		{
+		    
+			x_char_loc[j-1] = data / pow(10,numLength-j);
+			data=data - x_char_loc[j-1] * pow(10,numLength-j);			
+		}
+		x_char_loc[numLength-1] = ((uint16_t)data % 10);
+		data = (data - ((uint16_t)data % 10)) * 1000;
+		if((((uint16_t)data%100)%10) < 5)
+		{
+		    data/=10;
+    		x_char_loc[numLength+1] = (uint16_t)data / 10;
+    		x_char_loc[numLength+2] = (uint16_t)data % 10;
+		}
+		else
+		{
+		    data/=10;
+    		x_char_loc[numLength+1] = (uint16_t)data / 10;
+    		x_char_loc[numLength+2] = ((uint16_t)data % 10)+1;
+    		if(x_char_loc[numLength+2] == 10)
+    		{
+    		    x_char_loc[numLength+1] =x_char_loc[numLength+1] + 1;
+    		    x_char_loc[numLength+2] = 0;
+    		    if(x_char_loc[numLength+1] == 10)
+    		    {
+    		        x_char_loc[numLength-1] = x_char_loc[numLength-1] + 1;
+    		        x_char_loc[numLength+1] = 0;
+    		    }
+    		}
+		}
+		for(i=0;i<numLength;i++)
+		    x_char[i] = x_char_loc[i] + '0';
+		x_char_loc[numLength-1] = ((uint16_t)data % 10);		
+		x_char[numLength] = '.';
+		x_char[numLength+1] = x_char_loc[numLength+1] + '0';
+		x_char[numLength+2] = x_char_loc[numLength+2] + '0';
+		SSD1306_Puts (x_char, Font, 1);		
+}
 
 void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row)
 {
@@ -183,7 +249,6 @@ void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16
 void SSD1306_Init(void) {
 
 	/* Init I2C */
-	//ssd1306_I2C_Init();
 	/* Check if LCD connected to I2C */
 	
 	/* A little delay */
@@ -624,32 +689,7 @@ void SSD1306_ON(void) {
 	SSD1306_WRITECOMMAND(0x14);  
 	SSD1306_WRITECOMMAND(0xAF);  
 }
-void SSD1306_OFF(void) {
-	SSD1306_WRITECOMMAND(0x8D);  
-	SSD1306_WRITECOMMAND(0x10);
-	SSD1306_WRITECOMMAND(0xAE);  
-}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  _____ ___   _____ 
-// |_   _|__ \ / ____|
-//   | |    ) | |     
-//   | |   / /| |     
-//  _| |_ / /_| |____ 
-// |_____|____|\_____|
-//
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void ssd1306_I2C_Init() {
-	//MX_I2C1_Init();
-	uint32_t p = 250000;
-	while(p>0)
-		p--;
-	HAL_I2C_DeInit(&hi2c1);
-	p = 250000;
-	while(p>0)
-		p--;
-}
 
 
 

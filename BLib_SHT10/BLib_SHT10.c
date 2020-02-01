@@ -1,6 +1,7 @@
 
 #include "stm32f1xx_hal.h"
 
+>>>>>>> master
 #include "BLib_SHT10.h"
 
 /*

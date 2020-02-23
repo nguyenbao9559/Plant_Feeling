@@ -1,4 +1,11 @@
+#ifdef	stm32f4
+#include "stm32f4xx_hal.h"
+#endif
+
+#ifdef	stm32f1
 #include "stm32f1xx_hal.h"
+#endif
+
 
 #ifndef __BLib_SHT10_H__
 #define __BLib_SHT10_H__
@@ -63,10 +70,6 @@ void BLib_SHT10_Init(GPIO_TypeDef* GPIOx, uint16_t Data_Pin , uint16_t Clk_Pin ,
 uint8_t BLib_SHT10_StRegRead();							
 
 void BLib_SHT10_StRegWrite(uint8_t Data_Reg);
-
-uint32_t BLib_GlbSrv_Set_Bit(uint32_t Data_Reg , uint8_t BP);
-
-uint32_t BLib_GlbSrv_CLr_Bit(uint32_t Data_Reg , uint8_t BP);
 
 void BLib_SHT10_SelfHeat();
 								

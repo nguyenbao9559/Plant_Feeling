@@ -1,5 +1,8 @@
+
 #include "stm32f1xx_hal.h"
+
 #include "BLib_SHT10.h"
+#include "BLib_GlbSrv.h"
 
 /*
 	This function is used to set the type of Hardware pin (input/output)
@@ -277,12 +280,3 @@ void BLib_SHT10_SelfHeat()
 	BLib_SHT10_Com_CmdWrite(Data_Reg);
 }
 
-uint32_t BLib_GlbSrv_Set_Bit(uint32_t Data_Reg , uint8_t BP)
-{
-	return (Data_Reg | (1 << BP));
-}
-
-uint32_t BLib_GlbSrv_CLr_Bit(uint32_t Data_Reg , uint8_t BP)
-{
-	return (Data_Reg & (~(1 << BP)));
-}

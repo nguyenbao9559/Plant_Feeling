@@ -24,4 +24,5 @@ extern Bitmap_t BLib_Bitmap_Time_1;
 extern Bitmap_t BLib_Bitmap_Time_2;
 extern Bitmap_t BLib_Bitmap_Humidity;
 extern Bitmap_t BLib_Bitmap_Moisture;
+
 #endif

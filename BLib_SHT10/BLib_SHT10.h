@@ -76,11 +76,11 @@ typedef struct
 */
 void BLib_SHT10_Init(GPIO_TypeDef* GPIOx, uint16_t Data_Pin , uint16_t Clk_Pin , uint8_t SHT10_resolution , uint8_t SHT10_Power);
 							  
-uint8_t BLib_SHT10_StRegRead();							
+uint8_t BLib_SHT10_StRegRead(void);							
 
 void BLib_SHT10_StRegWrite(uint8_t Data_Reg);
 
-void BLib_SHT10_SelfHeat();
+void BLib_SHT10_SelfHeat(void);
 								
 void BLib_MODER_Update(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, uint8_t Pin_Typ);							  
 
@@ -110,17 +110,18 @@ uint16_t BLib_SHT10_Com_DatRead(uint8_t Ack);
 /*
 	This function is used to read the raw temperature from sensor
 */
-uint16_t BLib_SHT10_TempRaw_DdRead();
+uint16_t BLib_SHT10_TempRaw_DdRead(void);
 /*
 	This function is used to read the raw humidity from sensor
 */
-uint16_t BLib_SHT10_HumiRaw_DdRead();
+uint16_t BLib_SHT10_HumiRaw_DdRead(void);
 /*
 	This function is used to read the humidity value
 */
-float BLib_SHT10_HumiRead();
+float BLib_SHT10_HumiRead(void);
 /*
 	This function is used to read the temperature value
 */
-float BLib_SHT10_TempRead();
+float BLib_SHT10_TempRead(void);
+
 #endif

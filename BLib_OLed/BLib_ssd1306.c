@@ -273,7 +273,7 @@ void BLib_SSD1306_InvertDisplay (int i)
 }
 
 
-void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, uint16_t color)
+void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, BLib_SSD1306_COLOR_t color)
 {
     int16_t byteWidth = (BLib_Bitmap->Width + 7) / 8; // Bitmap scanline pad = whole byte
     uint8_t byte = 0;
@@ -290,7 +290,10 @@ void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, uint16
             {
                byte = (*(const unsigned char *)(&BLib_Bitmap->Bitmap[j * byteWidth + i / 8]));
             }
-            if(byte & 0x80) BLib_SSD1306_DrawPixel(x+i, y, color);
+            if(byte & 0x80) 
+						{	
+							BLib_SSD1306_DrawPixel(x+i, y, color);
+						}
         }
     }
 }

@@ -47,7 +47,7 @@ typedef struct
 
 /***********TSL2561 Timing Register***********************************************************/
 //TSL2561 Integration Time
-#define TSL2561_TIMReg_IntegTim_Slow_BP		0x10 //402ms
+#define TSL2561_TIMReg_IntegTim_Slow_BP		0x02 //402ms
 #define TSL2561_TIMReg_IntegTim_Medium_BP	0x01 //101ms
 #define TSL2561_TIMReg_IntegTim_Fast_BP		0x00 //13.7ms
 //TSL2561 Gain
@@ -126,13 +126,14 @@ typedef struct
 /////////////////////////////////////////////////////////////////////////////////
 
 uint16_t BLib_TSL2561_CmdRead(uint8_t cmd);
-void BLib_TSL2561_PwrUp();
-void BLib_TSL2561_PwrDwn();
+void BLib_TSL2561_PwrUp(void);
+void BLib_TSL2561_PwrDwn(void);
 void BLib_TSL2561_IntegrationTime_Set(uint16_t IntegrationTime);
 void BLib_TSL2561_Gain_Set(uint8_t Gain);
 void BLib_TSL2561_Init(uint16_t TSL2561_TIMReg , uint8_t TSL2561_GAIN);
-uint16_t BLib_TSL2561_Ch0RawRead();
-uint16_t BLib_TSL2561_Ch1RawRead();
-uint32_t BLib_TSL2561_Lux();
+uint16_t BLib_TSL2561_Ch0RawRead(void);
+uint16_t BLib_TSL2561_Ch1RawRead(void);
+uint32_t BLib_TSL2561_Lux(void);
+uint16_t BLib_TSL2561_Status(void);
 
 #endif

@@ -204,28 +204,28 @@ uint16_t BLib_SHT10_Com_DatRead(uint8_t Ack)
 
 uint16_t BLib_SHT10_TempRaw_DdRead()
 {
-	uint8_t MSB_loc , LSB_loc , CRC_Loc;
+	uint8_t MSB_loc , LSB_loc;
 	uint16_t TempRaw_Loc = 0;
 	BLib_SHT10_Com_Strt();
 	BLib_SHT10_Com_CmdWrite(TempRead);
 	while(HAL_GPIO_ReadPin(SHT10_Init.SHT10_DATA_PORT ,SHT10_Init.SHT10_DATA_PIN));
 	MSB_loc = BLib_SHT10_Com_DatRead(SHT10_ACK);
 	LSB_loc = BLib_SHT10_Com_DatRead(SHT10_ACK);
-	CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
+//	uint8_t CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
 	TempRaw_Loc = (MSB_loc << 8) | LSB_loc;
 	return TempRaw_Loc;
 }
 
 uint16_t BLib_SHT10_HumiRaw_DdRead()
 {
-	uint8_t MSB_loc , LSB_loc , CRC_Loc;
+	uint8_t MSB_loc , LSB_loc;
 	uint16_t HumiRaw_Loc = 0;
 	BLib_SHT10_Com_Strt();
 	BLib_SHT10_Com_CmdWrite(HumiRead);
 	while(HAL_GPIO_ReadPin(SHT10_Init.SHT10_DATA_PORT ,SHT10_Init.SHT10_DATA_PIN));
 	MSB_loc = BLib_SHT10_Com_DatRead(SHT10_ACK);
 	LSB_loc = BLib_SHT10_Com_DatRead(SHT10_ACK);
-	CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
+//	uint8_t CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
 	HumiRaw_Loc = (MSB_loc << 8) | LSB_loc;
 	return HumiRaw_Loc;
 }
@@ -236,8 +236,8 @@ float BLib_SHT10_HumiRead()
 	float Humi_Loc;
 	HuminRaw_Loc = BLib_SHT10_HumiRaw_DdRead();
 	Humi_Loc = SHT10_Init.c1 + SHT10_Init.c2*HuminRaw_Loc + SHT10_Init.c3*HuminRaw_Loc*HuminRaw_Loc; // Convert raw value of humidity to RH
-	Humi_Loc = (TempVal - 25.0)*(SHT10_Init.t1 + SHT10_Init.t2*HuminRaw_Loc) + Humi_Loc; // Temperature compensation, when temp is high, Humidity will be low
-	if(Humi_Loc > 90)
+	Humi_Loc = Humi_Loc + (TempVal - 25)*(SHT10_Init.t1 + SHT10_Init.t2*HuminRaw_Loc); // Temperature compensation, when temp is high, Humidity will be low
+//	if(Humi_Loc > 90)
 	return Humi_Loc;
 }
 
@@ -253,12 +253,11 @@ float BLib_SHT10_TempRead()
 
 uint8_t BLib_SHT10_StRegRead()
 {
-	uint8_t CRC_Loc;
 	uint8_t StReg_Loc;
 	BLib_SHT10_Com_Strt();
 	BLib_SHT10_Com_CmdWrite(stRegRead);
 	StReg_Loc = BLib_SHT10_Com_DatRead(SHT10_ACK);
-	CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
+	uint8_t CRC_Loc = BLib_SHT10_Com_DatRead(SHT10_nonACK);
 	return StReg_Loc;	
 }
 

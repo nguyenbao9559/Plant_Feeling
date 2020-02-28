@@ -7,6 +7,11 @@ extern I2C_HandleTypeDef hi2c2;
 static TSL2561_Init_t TSL2561_Init;
 static uint16_t BLib_TSL2561_StMon_Reg = 0x00;
 
+uint16_t BLib_TSL2561_Status()
+{
+	return BLib_TSL2561_StMon_Reg;
+}
+
 void BLib_TSL2561_CmdWrite(uint8_t Reg , uint8_t cmd) {
 	HAL_I2C_Mem_Write(&hi2c2,TSL2561_Addr<<1,Reg,I2C_MEMADD_SIZE_8BIT,&cmd,1,HAL_MAX_DELAY);
 }

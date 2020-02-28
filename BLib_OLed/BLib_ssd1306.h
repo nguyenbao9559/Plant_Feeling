@@ -247,7 +247,7 @@ void BLib_SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, BLib_SSD13
  *           - 0: LCD was not detected on I2C port
  *           - > 0: LCD initialized OK and ready to use
  */
-void BLib_SSD1306_I2C_Init();
+void BLib_SSD1306_I2C_Init(void);
 
 /**
  * @brief  Writes single byte to slave
@@ -279,7 +279,7 @@ void BLib_SSD1306_I2C_WriteMulti(uint8_t *data, size_t count);
  * @param  H : Height of the image
  * @param  color : 1-> white/blue, 0-> black
  */
-void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, uint16_t color);
+void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, BLib_SSD1306_COLOR_t color);
 
 // scroll the screen for fixed rows
 

@@ -23,7 +23,6 @@
 #define stm32f4
 #include "BLib_ssd1306.h"
 #include "math.h"
-
 extern I2C_HandleTypeDef hi2c1;
 /* Write command */
 //#define BLib_SSD1306_WRITECOMMAND(command)      BLib_SSD1306_I2C_Write(BLib_SSD1306_I2C_ADDR, 0x00, (command))
@@ -68,7 +67,7 @@ void BLib_SSD1306_I2C_WriteMulti(uint8_t* buffer , size_t buffer_size) {
 	HAL_I2C_Mem_Write(&hi2c1,BLib_SSD1306_I2C_ADDR<<1,0x40,I2C_MEMADD_SIZE_8BIT,buffer,buffer_size,HAL_MAX_DELAY);
 }
 
-void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t unit)
+void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t BLib_SSD1306_Data_Unit)
 {
 		char x_char[10];
 		uint8_t i, j, numLength , unitLength;
@@ -83,7 +82,7 @@ void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t uni
 			}
 		}
 		
-		switch(unit)
+		switch(BLib_SSD1306_Data_Unit)
 		{
 			case BLib_SSD1306_Data_Unit_Deg:
 				x_char[numLength] = ' ';
@@ -274,15 +273,14 @@ void BLib_SSD1306_InvertDisplay (int i)
 }
 
 
-void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16_t w, int16_t h, uint16_t color)
+void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, uint16_t color)
 {
-
-    int16_t byteWidth = (w + 7) / 8; // Bitmap scanline pad = whole byte
+    int16_t byteWidth = (BLib_Bitmap->Width + 7) / 8; // Bitmap scanline pad = whole byte
     uint8_t byte = 0;
 
-    for(int16_t j=0; j<h; j++, y++)
+    for(int16_t j=0; j<BLib_Bitmap->Height; j++, y++)
     {
-        for(int16_t i=0; i<w; i++)
+        for(int16_t i=0; i<BLib_Bitmap->Width; i++)
         {
             if(i & 7)
             {
@@ -290,7 +288,7 @@ void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, 
             }
             else
             {
-               byte = (*(const unsigned char *)(&bitmap[j * byteWidth + i / 8]));
+               byte = (*(const unsigned char *)(&BLib_Bitmap->Bitmap[j * byteWidth + i / 8]));
             }
             if(byte & 0x80) BLib_SSD1306_DrawPixel(x+i, y, color);
         }

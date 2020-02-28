@@ -55,16 +55,25 @@ typedef struct
 
 /***********SHT10 Status Register Bit position*********************************************************/
 
-#define SHT10_LowBatDect_BP			6 // will be activated when VDD < 2.47
+#define SHT10_LowBatDect_BP				6 // will be activated when VDD < 2.47
 #define SHT10_MeasReso_BP				0 //'1’ = 8bit RH / 12bit Temp. resolution
-																	//’0’ = 12bit RH / 14bit Temp. resolution
+											//’0’ = 12bit RH / 14bit Temp. resolution
 #define SHT10_Heater_BP					2 // The heater may increase the temperature of the sensor by 5 – 10°c beyond ambient temperature
 																	// o keep self heating below 0.1°C, SHT1x should not be active for more than 10% of the time – e.g. 
-																	//maximum one measurement per second at 12bit accuracy shall be made
-							  
-							  
-/***********SHT10 Function call************************************************************************/				
+																	//maximum one measurement per second at 12bit accuracy shall be made						  
 
+/***********SHT10 Additional defination****************************************************************/
+#define SHT10_Power_3v				3
+#define SHT10_Power_5v				5
+#define SHT10_resolution_8bit		1
+#define SHT10_resolution_12bit		0
+/***********SHT10 Function call************************************************************************/				
+/*
+	This function is used for initalizing SHT10
+	SHT10_Power : 3v / 5v.
+	SHT10_resolution : 1 = 8bit RH / 12bit Temp. resolution
+					   0 = 12bit RH / 14bit Temp. resolution
+*/
 void BLib_SHT10_Init(GPIO_TypeDef* GPIOx, uint16_t Data_Pin , uint16_t Clk_Pin , uint8_t SHT10_resolution , uint8_t SHT10_Power);
 							  
 uint8_t BLib_SHT10_StRegRead();							

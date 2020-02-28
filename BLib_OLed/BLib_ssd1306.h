@@ -54,7 +54,7 @@ SDA        |PB7          |Serial data line
 #endif
 
 #include "BLib_fonts.h"
-
+#include "BLib_Bitmap.h"
 #include "stdlib.h"
 #include "string.h"
 
@@ -279,7 +279,7 @@ void BLib_SSD1306_I2C_WriteMulti(uint8_t *data, size_t count);
  * @param  H : Height of the image
  * @param  color : 1-> white/blue, 0-> black
  */
-void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16_t w, int16_t h, uint16_t color);
+void BLib_SSD1306_DrawBitmap(int16_t x, int16_t y, Bitmap_t* BLib_Bitmap, uint16_t color);
 
 // scroll the screen for fixed rows
 
@@ -303,9 +303,9 @@ void BLib_SSD1306_Stopscroll(void);
 
 void BLib_SSD1306_InvertDisplay (int i);
 
-void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t unit);
+void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t BLib_SSD1306_Data_Unit);
 
-void BLib_SSD1306_Data_Display_float(float data , FontDef_t* Font, uint8_t unit);
+void BLib_SSD1306_Data_Display_float(float data , FontDef_t* Font, uint8_t BLib_SSD1306_Data_Unit);
 
 
 

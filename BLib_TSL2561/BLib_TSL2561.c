@@ -73,11 +73,11 @@ void BLib_TSL2561_Gain_Set(uint8_t Gain)
 }
 
 
-void BLib_TSL2561_Init(uint16_t IntegrationTime , uint8_t Gain)
+void BLib_TSL2561_Init(uint16_t TSL2561_TIMReg , uint8_t TSL2561_GAIN)
 {
 	/* Get the correct scale depending on the intergration time */
 	/* Update the delay time basde on configuration */
-	switch(IntegrationTime)
+	switch(TSL2561_TIMReg)
 	{
 		case (0x00): // 13.7 msec
 			TSL2561_Init.IntegrationTime = 14;
@@ -98,20 +98,20 @@ void BLib_TSL2561_Init(uint16_t IntegrationTime , uint8_t Gain)
 			TSL2561_Init.HighThreshold = 63000;		
 			break;
 	}
-	if(Gain == TSL2561_GAIN_Auto)
+	if(TSL2561_GAIN == TSL2561_GAIN_Auto)
 	{
-		Gain = TSL2561_GAIN_16X;
+		TSL2561_GAIN = TSL2561_GAIN_16X;
 		BLib_TSL2561_StMon_Reg = BLib_GlbSrv_Set_Bit(BLib_TSL2561_StMon_Reg , BLib_TSl2561_StReg_Autogain);
 	}
 	else
 	{
-		if(Gain == TSL2561_GAIN_1X)	
+		if(TSL2561_GAIN == TSL2561_GAIN_1X)	
 		{
 			TSL2561_Init.ChScale = TSL2561_Init.ChScale << 4; // scale 1X to 16X
 		}	
 	}
-	BLib_TSL2561_IntegrationTime_Set(IntegrationTime);
-	BLib_TSL2561_Gain_Set(Gain);
+	BLib_TSL2561_IntegrationTime_Set(TSL2561_TIMReg);
+	BLib_TSL2561_Gain_Set(TSL2561_GAIN);
 }
 
 uint16_t BLib_TSL2561_Ch0RawRead()

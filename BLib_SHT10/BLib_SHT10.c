@@ -1,6 +1,4 @@
-
-#include "stm32f1xx_hal.h"
-
+#define stm32f4
 #include "BLib_SHT10.h"
 #include "BLib_GlbSrv.h"
 
@@ -21,17 +19,17 @@ void BLib_SHT10_Init(GPIO_TypeDef* GPIOx, uint16_t Data_Pin , uint16_t Clk_Pin ,
 	SHT10_Init.SHT10_CLK_PIN = Clk_Pin;
 	SHT10_Init.SHT10_CLK_PORT = GPIOx;
 	SHT10_Init.SHT10_DATA_PORT = GPIOx;
-	if(SHT10_Init.SHT10_Power_Supply == 3)
+	if(SHT10_Init.SHT10_Power_Supply == SHT10_Power_3v)
 	{
 		SHT10_Init.d1 = -39.6;
 	}
-	if(SHT10_Init.SHT10_Power_Supply == 5)
+	if(SHT10_Init.SHT10_Power_Supply == SHT10_Power_5v)
 	{
 		SHT10_Init.d1 = -40.1;
 	}	
-	if(SHT10_Init.SHT10_Resolution == 0)
+	if(SHT10_Init.SHT10_Resolution == SHT10_resolution_12bit)
 	{
-		BLib_SHT10_StRegWrite(BLib_GlbSrv_CLr_Bit(BLib_SHT10_StRegRead() , SHT10_MeasReso_BP));
+		BLib_SHT10_StRegWrite(BLib_GlbSrv_Clr_Bit(BLib_SHT10_StRegRead() , SHT10_MeasReso_BP));
 		SHT10_Init.d2 = 0.01;
 		SHT10_Init.t1 = 0.01;
 		SHT10_Init.t2 = 0.00008;

@@ -9,12 +9,9 @@
 #ifndef __BLib_GLBSRV_H__
 #define __BLib_GLBSRV_H__
 
-<<<<<<< HEAD
-=======
 #include "stm32f4xx_hal_tim.h"
 
 #define BLib_Timer_Enable		0x00
->>>>>>> plant_feeling
 
 uint32_t BLib_GlbSrv_Set_Bit(uint32_t Data_Reg , uint8_t BP);
 
@@ -22,8 +19,6 @@ uint32_t BLib_GlbSrv_Clr_Bit(uint32_t Data_Reg , uint8_t BP);
 
 uint8_t BLib_GlbSrv_Get_Bit(uint32_t Data_Reg , uint8_t BP);
 
-<<<<<<< HEAD
-=======
 /*
 	Name: BLib_GlbSrv_Timer_Init
 	Desc: This function is used for initializing timer
@@ -124,5 +119,4 @@ uint8_t BLib_GlbSrv_Timer_State(TIM_HandleTypeDef *htim);
 */
 uint8_t BLib_GlbSrv_RSFlipFlop(uint8_t Reset , uint8_t Set , uint8_t* State);
 
->>>>>>> plant_feeling
 #endif

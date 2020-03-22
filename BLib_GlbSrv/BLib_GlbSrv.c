@@ -2,15 +2,12 @@
 #include "BLib_GlbSrv.h"
 
 
-<<<<<<< HEAD
-=======
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim4;
 //Variable to store the counter of Timer2
 static uint16_t InternalCounter2;
 
 static uint8_t FlipFlop_TurnOnDelay_St;
->>>>>>> plant_feeling
 
 uint32_t BLib_GlbSrv_Set_Bit(uint32_t Data_Reg , uint8_t BP)
 {
@@ -31,8 +28,6 @@ uint8_t BLib_GlbSrv_Get_Bit(uint32_t Data_Reg , uint8_t BP)
 		status = 0;
 	return status;
 }
-<<<<<<< HEAD
-=======
 
 
 void BLib_GlbSrv_Timer_Init(TIM_HandleTypeDef *htim , uint16_t PSC , uint16_t ARR)
@@ -143,7 +138,7 @@ uint8_t BLib_GlbSrv_RSFlipFlop(uint8_t Reset , uint8_t Set , uint8_t* State)
 	return *State;
 }
 
-uint8_t BLib_GlbSrv_Timer_TurnOnDelay_Sec(uint8_t Trigger_Cond, uint16_t delay_duration , uint16_t duration)
+uint8_t BLib_GlbSrv_Timer_TurnOnDelay(uint8_t Trigger_Cond, uint16_t delay_duration , uint16_t duration)
 {
 	uint8_t FFSet = 0, FFReset = 0, FFState = 0;
 	if(Trigger_Cond)
@@ -175,4 +170,3 @@ void BLib_GLbSrv_Timer_Delay_ms(uint16_t time)
 }
 
 
->>>>>>> plant_feeling

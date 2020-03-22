@@ -138,7 +138,7 @@ uint8_t BLib_GlbSrv_RSFlipFlop(uint8_t Reset , uint8_t Set , uint8_t* State)
 	return *State;
 }
 
-uint8_t BLib_GlbSrv_Timer_TurnOnDelay(uint8_t Trigger_Cond, uint16_t delay_duration , uint16_t duration)
+uint8_t BLib_GlbSrv_Timer_TurnOnDelay_Sec(uint8_t Trigger_Cond, uint16_t delay_duration , uint16_t duration)
 {
 	uint8_t FFSet = 0, FFReset = 0, FFState = 0;
 	if(Trigger_Cond)

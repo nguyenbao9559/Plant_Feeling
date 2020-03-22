@@ -103,6 +103,41 @@ void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t BLi
 				x_char[numLength+1] = '%';			
 				unitLength = 1;
 				break;			
+<<<<<<< HEAD
+=======
+			case BLib_SSD1306_Data_Unit_Sec:
+				x_char[numLength] = 's';
+				unitLength = 0;
+				break;
+			case BLib_SSD1306_Data_Unit_Day:
+				switch(data)
+				{
+					case 1:
+						BLib_SSD1306_Puts("Mon",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 2:
+						BLib_SSD1306_Puts("Tue",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 3:
+						BLib_SSD1306_Puts("Wed",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 4:
+						BLib_SSD1306_Puts("Thu",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 5:
+						BLib_SSD1306_Puts("Fri",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 6:
+						BLib_SSD1306_Puts("Sat",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					case 7:
+						BLib_SSD1306_Puts("Sun",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+					default:
+						BLib_SSD1306_Puts("Error",&Font_11x18,BLib_SSD1306_COLOR_WHITE);
+						break;
+				}
+>>>>>>> plant_feeling
 			default:
 				x_char[numLength] = ' ';
 				unitLength = 0;
@@ -114,10 +149,24 @@ void BLib_SSD1306_Data_Display_int(uint32_t data , FontDef_t* Font , uint8_t BLi
 			data = data - x_char_loc[j-1] * pow(10,numLength-j);			
 		}
 		x_char_loc[numLength-1] = (data % 10);
+<<<<<<< HEAD
 		for(i=0 ;i < numLength ; i++)
 			x_char[i] = x_char_loc[i] + '0';	
 		for(i=0 ;i <= numLength + unitLength ; i++)
 			BLib_SSD1306_Putc (x_char[i], Font ,BLib_SSD1306_COLOR_WHITE);	
+=======
+		if(BLib_SSD1306_Data_Unit != BLib_SSD1306_Data_Unit_Day)
+		{
+			for(i=0 ;i < numLength ; i++)
+				x_char[i] = x_char_loc[i] + '0';	
+			for(i=0 ;i <= numLength + unitLength ; i++)
+				BLib_SSD1306_Putc (x_char[i], Font ,BLib_SSD1306_COLOR_WHITE);	
+		}
+		else
+		{
+			;
+		}
+>>>>>>> plant_feeling
 }
 
 void BLib_SSD1306_Data_Display_float(float data , FontDef_t* Font, uint8_t unit)

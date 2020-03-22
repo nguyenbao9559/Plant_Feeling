@@ -78,7 +78,13 @@ SDA        |PB7          |Serial data line
 #define BLib_SSD1306_Data_Unit_Deg			0x01
 #define BLib_SSD1306_Data_Unit_Lux			0x02
 #define BLib_SSD1306_Data_Unit_Percent	0x03
+<<<<<<< HEAD
 
+=======
+#define BLib_SSD1306_Data_Unit_Day			0x04
+#define BLib_SSD1306_Data_Unit_Mon			0x05
+#define BLib_SSD1306_Data_Unit_Sec			0x06
+>>>>>>> plant_feeling
 
 
 /**

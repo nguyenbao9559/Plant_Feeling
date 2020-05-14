@@ -1,4 +1,4 @@
-#define stm32f4
+#include "main.h"
 #include "BLib_Bitmap.h"
 #include "string.h"
 
@@ -454,10 +454,9 @@ Bitmap_t BLib_Bitmap_Light = {
 	47,46
 };
 
-Bitmap_t Blib_Bitmap_Plant_1 = {
+Bitmap_t Blib_Bitmap_Plant = {
 	Plant_1,
-	64,
-	64
+	64,64
 };
 
 Bitmap_t Blib_Bitmap_Plant_2 = {

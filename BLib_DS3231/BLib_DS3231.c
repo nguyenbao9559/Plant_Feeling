@@ -1,9 +1,8 @@
-//#include "BLib_RTC.h"
-#include "stm32f4xx_hal.h"
+#include "main.h"
 #include "BLib_DS3231.h"
 #include "BLib_GlbSrv.h"
 
-extern I2C_HandleTypeDef hi2c2;
+extern I2C_HandleTypeDef hi2c1;
 extern TIM_HandleTypeDef htim2;
 static uint8_t FlipFlop_RealTIme_St;
 
@@ -24,7 +23,7 @@ uint8_t BLib_DEC2BCD(uint8_t DEC)
 uint8_t BLib_DS3231_TimeGet(uint8_t DS3231_TimeDat)
 {
 	uint8_t Data_loc;
-	HAL_I2C_Mem_Read(&hi2c2,DS3231_Addr<<1,DS3231_TimeDat,I2C_MEMADD_SIZE_8BIT,&Data_loc,1,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c1,DS3231_Addr<<1,DS3231_TimeDat,I2C_MEMADD_SIZE_8BIT,&Data_loc,1,HAL_MAX_DELAY);
 	Data_loc = BLib_BCD2DEC(Data_loc);
 	return Data_loc;
 }
@@ -32,7 +31,7 @@ uint8_t BLib_DS3231_TimeGet(uint8_t DS3231_TimeDat)
 void BLib_DS3231_TimeSet(uint8_t DS3231_TimeDat , uint8_t TimeDat_Value)
 {
 	TimeDat_Value = BLib_DEC2BCD(TimeDat_Value);
-	HAL_I2C_Mem_Write(&hi2c2,DS3231_Addr<<1,DS3231_TimeDat,I2C_MEMADD_SIZE_8BIT,&TimeDat_Value,1,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1,DS3231_Addr<<1,DS3231_TimeDat,I2C_MEMADD_SIZE_8BIT,&TimeDat_Value,1,HAL_MAX_DELAY);
 }
 
 uint8_t BLib_DS3231_RealTimeAlrm(uint8_t DS3231_TimeDat, uint8_t TimeDat_AlarmVal, uint8_t duration)

@@ -1,11 +1,3 @@
-#ifdef	stm32f4
-#include "stm32f4xx_hal.h"
-#endif
-
-#ifdef	stm32f1
-#include "stm32f1xx_hal.h"
-#endif
-
 #ifndef __BLib_TSL2561_H__
 #define __BLib_TSL2561_H__
 
@@ -19,9 +11,9 @@ typedef struct
 }TSL2561_Init_t;
 
 #ifndef	TSL2561_Addr
-#define TSL2561_Addr	0x49 // Address selection pin is connected to VDD
+//#define TSL2561_Addr	0x49 // Address selection pin is connected to VDD
 //#define TSL2561_ADDR  0x39 // Address selection pin is left float
-//#define TSL2561_Addr	0x29 // Address selection pin is connected to GND
+#define TSL2561_Addr	0x29 // Address selection pin is connected to GND
 #endif
 
 /***********TSL2561 Command Register**********************************************************/

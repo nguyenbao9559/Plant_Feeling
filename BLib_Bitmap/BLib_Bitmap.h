@@ -1,14 +1,6 @@
 #ifndef __BITMAP_H__
 #define __BITMAP_H__
 
-#ifdef	stm32f4
-#include "stm32f4xx_hal.h"
-#endif
-
-#ifdef	stm32f1
-#include "stm32f1xx_hal.h"
-#endif
-
 typedef struct
 {
 	char* Bitmap;
@@ -17,7 +9,7 @@ typedef struct
 }Bitmap_t;
 
 extern Bitmap_t BLib_Bitmap_Light;
-extern Bitmap_t BLib_Bitmap_Plant_1;
+extern Bitmap_t Blib_Bitmap_Plant;
 extern Bitmap_t Blib_Bitmap_Plant_2;
 extern Bitmap_t BLib_Bitmap_Temp;
 extern Bitmap_t BLib_Bitmap_Time_1;

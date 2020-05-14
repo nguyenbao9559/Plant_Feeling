@@ -1,9 +1,8 @@
-
-#define stm32f4
+#include "main.h"
 #include "BLib_TSL2561.h"
 #include "BLib_GlbSrv.h"
 
-extern I2C_HandleTypeDef hi2c2;
+extern I2C_HandleTypeDef hi2c1;
 static TSL2561_Init_t TSL2561_Init;
 static uint16_t BLib_TSL2561_StMon_Reg = 0x00;
 
@@ -13,13 +12,13 @@ uint16_t BLib_TSL2561_Status()
 }
 
 void BLib_TSL2561_CmdWrite(uint8_t Reg , uint8_t cmd) {
-	HAL_I2C_Mem_Write(&hi2c2,TSL2561_Addr<<1,Reg,I2C_MEMADD_SIZE_8BIT,&cmd,1,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1,TSL2561_Addr<<1,Reg,I2C_MEMADD_SIZE_8BIT,&cmd,1,HAL_MAX_DELAY);
 }
 
 uint16_t BLib_TSL2561_CmdRead(uint8_t cmd) {
 	uint8_t data[2];
 	uint16_t Data_loc;
-	HAL_I2C_Mem_Read(&hi2c2,TSL2561_Addr<<1,cmd,I2C_MEMADD_SIZE_8BIT,data,2,HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c1,TSL2561_Addr<<1,cmd,I2C_MEMADD_SIZE_8BIT,data,2,HAL_MAX_DELAY);
 	Data_loc = (data[1]<<8) | data[0];
 	return Data_loc;
 }

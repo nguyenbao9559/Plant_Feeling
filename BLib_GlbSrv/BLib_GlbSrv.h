@@ -1,17 +1,19 @@
-#ifdef	stm32f4
-#include "stm32f4xx_hal.h"
-#endif
-
-#ifdef	stm32f1
-#include "stm32f1xx_hal.h"
-#endif
-
 #ifndef __BLib_GLBSRV_H__
 #define __BLib_GLBSRV_H__
 
-#include "stm32f4xx_hal_tim.h"
+
 
 #define BLib_Timer_Enable		0x00
+/********************************ADC Configuration*********************************/
+#define BLib_ADC_Accuracy_Low			0x00
+#define BLib_ADC_Accuracy_Med			0x01
+#define BLib_ADC_Accuracy_High		0x02
+
+#define BLib_ADC_SMPR_BP_0				0x1UL
+#define BLib_ADC_SMPR_BP_1				0x2UL
+#define BLib_ADC_SMPR_BP_2				0x4UL
+
+
 
 uint32_t BLib_GlbSrv_Set_Bit(uint32_t Data_Reg , uint8_t BP);
 
@@ -118,5 +120,13 @@ uint8_t BLib_GlbSrv_Timer_State(TIM_HandleTypeDef *htim);
 	Usage.
 */
 uint8_t BLib_GlbSrv_RSFlipFlop(uint8_t Reset , uint8_t Set , uint8_t* State);
+
+uint16_t BLib_GlbSrv_ADC_Read(ADC_HandleTypeDef *hadc);
+
+void BLib_GlbSrv_ADC_Init(ADC_HandleTypeDef *hadc,uint8_t channel_Order, uint8_t channel_Numb ,uint8_t BLib_ADC_Accuracy);
+
+uint32_t BLib_GlbSrv_RngCheck(int32_t Val_In , int32_t Val_LowThresh , int32_t Val_HighThresh);
+
+uint8_t BLib_GlbSrv_RngCheck_State(uint32_t Val_In , uint32_t Val_LowThresh , uint32_t Val_HighThresh);
 
 #endif

@@ -38,14 +38,6 @@ extern C {
  *  - 11 x 18 pixels
  *  - 16 x 26 pixels
  */
-#ifdef	stm32f4
-#include "stm32f4xx_hal.h"
-#endif
-
-#ifdef	stm32f1
-#include "stm32f1xx_hal.h"
-#endif
-
 #include "string.h"
 
 /**

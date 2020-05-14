@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    ----------------------------------------------------------------------
  */
-#define stm32f4
+#include "main.h"
 #include "BLib_fonts.h"
 
 const uint16_t Font7x10 [] = {

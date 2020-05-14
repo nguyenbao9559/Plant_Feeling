@@ -1,11 +1,3 @@
-#ifdef	stm32f4
-#include "stm32f4xx_hal.h"
-#endif
-
-#ifdef	stm32f1
-#include "stm32f1xx_hal.h"
-#endif
-
 #ifndef __BLib_RTC_H__
 #define __BLib_RTC_H__
 

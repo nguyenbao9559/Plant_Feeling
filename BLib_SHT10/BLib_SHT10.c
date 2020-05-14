@@ -1,4 +1,4 @@
-#define stm32f4
+#include "main.h"
 #include "BLib_SHT10.h"
 #include "BLib_GlbSrv.h"
 
